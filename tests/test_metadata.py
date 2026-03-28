@@ -42,6 +42,17 @@ def test_detect_space_name():
     assert detect_space_name(all_categories) == "jvhaarst's notebook"
 
 
+def test_detect_space_name_majority():
+    """Space name detected even when not in every note."""
+    all_categories = [
+        ["jvhaarst's notebook", "p1"],
+        ["jvhaarst's notebook", "raspi"],
+        ["Sysop"],  # note without space name
+        ["jvhaarst's notebook"],
+    ]
+    assert detect_space_name(all_categories) == "jvhaarst's notebook"
+
+
 def test_detect_space_name_no_common():
     all_categories = [
         ["notebook-a", "p1"],

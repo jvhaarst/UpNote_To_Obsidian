@@ -38,6 +38,7 @@ class UpNoteConverter(MarkdownConverter):
                 # Get cell text, collapse internal whitespace and <br>
                 cell_text = cell.get_text(separator=" ").strip()
                 cell_text = re.sub(r"\s+", " ", cell_text)
+                cell_text = cell_text.replace("|", "\\|")
                 row_data.append(cell_text)
             table_data.append(row_data)
 
@@ -54,7 +55,7 @@ class UpNoteConverter(MarkdownConverter):
             # Pad row if needed
             while len(row) < len(header):
                 row.append("")
-            result_lines.append("| " + " | ".join(row) + " |")
+            result_lines.append("| " + " | ".join(row[: len(header)]) + " |")
 
         return "\n\n" + "\n".join(result_lines) + "\n\n"
 

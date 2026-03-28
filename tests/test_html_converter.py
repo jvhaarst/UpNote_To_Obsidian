@@ -89,6 +89,19 @@ def test_html_entities_decoded():
     assert "&& y > 10" in result
 
 
+def test_table_pipe_in_cell():
+    html = "<table><tbody><tr><th>Name</th><th>Value</th></tr><tr><td>a | b</td><td>1</td></tr></tbody></table>"
+    result = convert_html(html)
+    assert "| a \\| b | 1 |" in result
+
+
+def test_table_extra_cells_truncated():
+    html = "<table><tbody><tr><th>A</th><th>B</th></tr><tr><td>1</td><td>2</td><td>3</td></tr></tbody></table>"
+    result = convert_html(html)
+    assert "| 1 | 2 |" in result
+    assert "3" not in result
+
+
 def test_full_page_wrapper_stripped():
     html = (
         '<head><title></title><meta charset="utf-8"></head>'

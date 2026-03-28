@@ -102,6 +102,21 @@ def test_table_extra_cells_truncated():
     assert "3" not in result
 
 
+def test_upnote_tag_link_becomes_hashtag():
+    html = '<a title="#kubernetes" data-upnote-tag="#kubernetes" href="upnote://x-callback-url/tag/view?tag=kubernetes">#kubernetes</a>'
+    result = convert_html(html)
+    assert "#kubernetes" in result
+    assert "upnote://" not in result
+
+
+def test_evernote_note_link_becomes_plain_text():
+    note_id = "34dd5941-2642-4fe7-b36d-521711686336"
+    html = f'Zie <a href="evernote:///view/2720975/s24/{note_id}/{note_id}/">SSL installeren op dev1</a>'
+    result = convert_html(html)
+    assert "SSL installeren op dev1" in result
+    assert "evernote:///" not in result
+
+
 def test_full_page_wrapper_stripped():
     html = (
         '<head><title></title><meta charset="utf-8"></head>'

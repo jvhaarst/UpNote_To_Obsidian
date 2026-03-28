@@ -1,7 +1,7 @@
 [project]
 name = "upnote-to-obsidian"
 version = "0.1.0"
-description = "Add your description here"
+description = "Convert UpNote exports (HTML + Markdown) into an Obsidian-compatible vault"
 requires-python = ">=3.12"
 dependencies = [
     "beautifulsoup4>=4.14.3",
@@ -17,7 +17,7 @@ dev = [
 
 [tool.ruff]
 line-length = 120
-exclude = ["UpNote_Reorganizer.py", "Upnote Export/"]
+exclude = ["UpNote_Reorganizer.py", "Upnote Export/", "obsidian_vault/"]
 
 [tool.ruff.lint]
 select = ["E", "F", "W", "I", "N", "UP"]

@@ -33,7 +33,7 @@ def test_extract_mixed():
 def test_rewrite_image_paths():
     md = "![](Files/File%20160.jpeg)\n![](Files/File.png)\n"
     result = rewrite_attachment_paths(md)
-    assert "![](attachments/File 160.jpeg)" in result
+    assert "![](attachments/File%20160.jpeg)" in result
     assert "![](attachments/File.png)" in result
 
 

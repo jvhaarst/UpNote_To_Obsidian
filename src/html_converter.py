@@ -96,6 +96,19 @@ def convert_html(html_content: str) -> str:
     else:
         target = soup
 
+    # Convert internal links before markdown conversion
+    for link in target.find_all("a", href=True):
+        href = link["href"]
+        if href.startswith("upnote://x-callback-url/tag/view"):
+            # UpNote tag link -> Obsidian #tag
+            tag_name = link.get_text().strip()
+            if not tag_name.startswith("#"):
+                tag_name = "#" + tag_name
+            link.replace_with(tag_name)
+        elif href.startswith("evernote:///"):
+            # Legacy Evernote note link -> keep text only
+            link.replace_with(link.get_text())
+
     # Strip style attributes from all elements
     for tag in target.find_all(True):
         if tag.attrs:

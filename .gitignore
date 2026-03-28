@@ -1,0 +1,11 @@
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+.pytest_cache/
+.ruff_cache/
+.DS_Store
+.claude/
+Upnote Export/
+obsidian_vault/
+.python-version

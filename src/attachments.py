@@ -32,15 +32,14 @@ def rewrite_attachment_paths(md_content: str) -> str:
     """Rewrite Files/ references in markdown to attachments/ paths.
 
     Handles both ![](Files/...) image refs and [text](Files/...) link refs.
-    URL-decodes the filenames during rewriting.
+    Preserves URL-encoding so paths with spaces render correctly in Obsidian.
     """
 
     def replace_files_ref(match: re.Match) -> str:
         prefix = match.group(1)  # "![...](" or "[...]("
         path = match.group(2)  # "Files/..."
         suffix = match.group(3)  # ")"
-        decoded = unquote(path)
-        new_path = decoded.replace("Files/", "attachments/", 1)
+        new_path = path.replace("Files/", "attachments/", 1)
         return f"{prefix}{new_path}{suffix}"
 
     # Match ![...](Files/...) and [...](Files/...)
